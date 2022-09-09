@@ -8,6 +8,7 @@
 \usepackage{theorem}
 \usepackage{version}
 \usepackage{multirow}
+\usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{tikz}
 \usetikzlibrary{arrows,arrows.meta,decorations,decorations.pathreplacing,calc,matrix}
@@ -111,40 +112,58 @@
 
 \begin{enumerate}
 
-\item Problem 1. Loop Invariant Example.
+\item Problem 1. Loop Invariant Example. \\
+See CLRS Chapter 2 for the notion of a "loop invariant". Look at function $mystery5(a,n)$ defined \href{https://cs.emory.edu/~mic/demos/mystery5.html}{here}. You may suppose that its arguments are non-negative integers. We ignore the possibility of integer arithmetic overflow.
     \begin{enumerate}
-        \item $u(x_{1},x_{2})=\min\{x_{1},x_{2}\}$, $p_{1}=2$, $p_{2}=1$, and $m=24$. In this case, you cannot apply the arbitrage method and should directly find the optimal consumption bundle.
+        \item Propose a loop invariant for mystery5, involving the values of a, n, r, i, and b. You'll want to choose an invariant which helps you to finish the next three parts of this problem. 
+        
+        \item Verify that your loop invariant is true initially (before the first iteration of the loop).
 
-        \item $u(x_{1},x_{2})=\min\{2x_{1},3x_{2}\}$, $p_{1}=p_{2}=1$, and $m=20$.
+        \item Verify that your loop invariant is maintained. That is, if it is true at the start of one iteration, then it is also true at the end of that iteration. (You'll need to consider two cases: either i is even or i is odd.)
 
-        \item $u(x_{1},x_{2})=3x_{1}+4x_{2}$, $p_{1}=2$, $p_{2}=3$, and $m=36$. You can either directly find the solution or apply the arbitrage method.
+        \item Supposing that the loop finally ends, use your loop invariant to argue that mystery5(a,n) returns an.
 
-
-        \item Nick's indifference curves are circles, all of which are centered at $(12,12)$. Of any two indifference circles, he would rather be on the inner one than the outer one (i.e., Nick's utility increases as he gets closer to $(12,12)$). In addition, $p_{1}=1$, $p_{2}=2$, and $m=16$.
-
-        \item $u(x_{1},x_{2})=\ln(x_{1})+2\ln(x_{2})$ (Cobb-Douglas), $p_{1}=p_{2}=1$, and $m=36$. For this and subsequent two problems, apply the arbitrage method.
-
-
-        \item $u(x_{1},x_{2})=10\ln(x_{1})+x_{2}$ (quasi-linear), $p_{1}=p_{2}=1$, and $m=36$.
-
-        \item $u(x_{1},x_{2})=12\sqrt{x_{1}}+x_{2}$ (quasi-linear), $p_{1}=2$, $p_{2}=1$, and $m=16$.
-
-        \item $u(x_{1},x_{2})=2\sqrt{x_{1}}+\sqrt{x_{2}}$, $p_{1}=2$, $p_{2}=1$, and $m=18$.
+        \item Argue that the loop will end. Furthermore, give a Θ estimate for the number of iterations of the loop, as a function of n.
     \end{enumerate}
 
-\item Consider Jenny's intertemporal choice problem from Week 1 Problem Set. Let $c_{1}$ denote her consumption today, $c_{2}$ her consumption tomorrow, $m_{1}$ her income today, and $m_{2}$ her income tomorrow. Her preferences over $(c_{1},c_{2})$ can be represented by the utility function $u(c_{1},c_{2})$. She can save at rate $r_{S}$ and borrow at rate $r_{B}$. In each of the following situations, determine whether she will save, borrow, or do neither, and provide a brief explanation.
+\item Problem 2. Ranking Functions.\\
+List the following functions in asymptotic order, with the slowest-growing functions first. Two functions $f$ and $g$ should be listed on the same line if $f(n)=Θ(g(n))$, otherwise they should be listed on separate lines. Note that $`lg'$ denotes the base-2 logarithm. No proofs are required for this problem!\\
+\hspace{0.5cm}
+$n, \sqrt{n}, n^2, (\sqrt2)^{lg \hspace{0.1 cm} n}, (3/2)^{n}, 9^{\log _{3} n}, \log _{10} (n^n), n^{1/3}, lg(n\hspace{0.1 cm} lg\hspace{0.1 cm}n),$ \\$ 2^n, 2^{2n}, 42, (lg \hspace{0.1 cm}n)^2, lg (n^2), 4^{\sqrt{n}}, n^n, n!, lg(n!), lg \hspace{0.1cm}lg\hspace{0.1cm}n, 1/n$
 
+
+\item Problem 3. Prove or Disprove.\\
+For each part, suppose the functions f(n) and g(n) are asymptotically positive, as defined in Chapter 3 (page 45). Note that for a disproof, you should give a counterexample.
     \begin{enumerate}
-        \item $u(c_{1},c_{2})=c_{1}c_{2}$, $m_{1}=100$, $m_{2}=144$, and $r_{S}=r_{B}=0.2$.
+        \item Prove or disprove: if $f(n)=O(g(n))$, then $2^{f(n)}=O(2^{g(n)})$.
+        
+        \item Prove or disprove: f(n) is $O(f^2(n))$.
 
-        \item $u(c_{1},c_{2})=c_{1}c_{2}$, $m_{1}=100$, $m_{2}=120$, $r_{S}=0.1$, and $r_{B}=0.15$.
-
-        \item $u(c_{1},c_{2})=\ln(c_{1})+2\ln(c_{2})$, $m_{1}=100$, $m_{2}=200$, $r_{S}=0.1$, and $r_{B}=0.15$.
-
-        \item $u(c_{1},c_{2})=\sqrt{c_{1}}+0.9\sqrt{c_{2}}$, $m_{1}=100$, $m_{2}=100$, $r_{S}=0.1$, and $r_{B}=0.15$.
+        \item Say function f is \textit{"asymptotically non-decreasing"} if $f(n)≤f(n+1)$ for all large enough n. Prove or disprove: if $f(n)=Θ(n^2)$, then f is asymptotically non-decreasing.
     \end{enumerate}
 
 
+\item Problem 4. Merge-Sort Array Space.\\
+Consider the pseudocode for MERGE and MERGE-SORT in Section 2.3. We suppose that the array A is passed "by reference", so there is only one copy of A. Note that MERGE allocates two new temporary arrays, L and R. We'll suppose that a new array of size k uses k+1 words of memory.
+    \begin{enumerate}
+        \item Let $A(n)$ be the total number of words of memory used for all of the new arrays allocated during MERGE-SORT, on an input array of size n. Give a Θ estimate for $A(n)$, and briefly justify your answer (a couple of sentences may suffice). Note we are not "recycling" memory yet (that's the next part).
+
+        \item Now we suppose that the allocated arrays are recycled back to the system when MERGE is done with them. (The memory for L and R is returned to the system at the end of MERGE, so that the memory can be reused.) Let $S(n)$ be the total number of words of memory that we need, in order to allocate all the arrays used during MERGE-SORT, on an input array of size n, assuming the memory is reused as much as possible. Again give a Θ estimate for the $S(n)$, and justify your answer. (This one is pretty simple! A sentence or two may suffice.)
+
+    \end{enumerate}
+        \\
+        \textbf{Remark: }besides the arrays, MERGE-SORT needs an additional O(lg n) words of stack space to keep track of all the recursive calls, but I'm not asking you about that.
+
+\item Problem 5. Find the Missing Integer.\\
+The array A[1..n] has n distinct integer entries. Each integer A[i] is in the range 0 to n (inclusive). So there is exactly one integer x in the range that does not appear in A. You want to find this x. However, you do not have direct access to the array A. Instead, for an array index i and $j≥0$, you can call the function get(i,j), which returns the jth bit of A[i], when it is written in binary notation. This function takes O(1) time per call.
+    \begin{enumerate}
+        \item Write out pseudocode for a procedure that finds x, using just n and the get(i,j) function.
+
+        \item Analyze the worst-case running time of your solution. For full credit, you want to show that it runs in $O(n)$ time.
+    \end{enumerate}
+
+        \\
+        \textbf{Remark: }Look for a recursive D&C approach, where you divide the problem size in half in O(n) time. If you like, you may assume that n = 2k-1 (so each A[i] is a k-bit integer). If you cannot solve this in O(n) time, then submit a O(n lg n) time solution for partial credit.
 
 
 \end{enumerate}
