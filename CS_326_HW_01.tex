@@ -176,9 +176,22 @@ For each part, suppose the functions f(n) and g(n) are asymptotically positive, 
 Consider the pseudocode for MERGE and MERGE-SORT in Section 2.3. We suppose that the array A is passed "by reference", so there is only one copy of A. Note that MERGE allocates two new temporary arrays, L and R. We'll suppose that a new array of size k uses k+1 words of memory.
     \begin{enumerate}
         \item Let $A(n)$ be the total number of words of memory used for all of the new arrays allocated during MERGE-SORT, on an input array of size n. Give a Θ estimate for $A(n)$, and briefly justify your answer (a couple of sentences may suffice). Note we are not "recycling" memory yet (that's the next part).
+        \vspace{0.3cm}\\\textbf{Solution:}
+        \begin{enumerate}
+            \item Case where in we are not "recycling" memory yet: \\
+            $\theta$ estimate for $A(n)$: $\theta (n \hspace{0.1cm} log \hspace{0.1cm}n)$
+            \item Looking at Merge Sort, as the book expresses it, as a tree (using 'tree analysis'): the size of each level's array is n\\
+            By putting together the number of levels in the tree $(log\hspace{0.1cm}n)$, and the size of each level's array, we get $n \hspace{0.1cm} log \hspace{0.1cm} n$
+            \item \therefore \hspace{0.1cm}$\theta (n \hspace{0.1cm} log \hspace{0.1cm}n)$ is an estimate for A(n) | the total number of words of memory used
+        \end{enumerate}
 
         \item Now we suppose that the allocated arrays are recycled back to the system when MERGE is done with them. (The memory for L and R is returned to the system at the end of MERGE, so that the memory can be reused.) Let $S(n)$ be the total number of words of memory that we need, in order to allocate all the arrays used during MERGE-SORT, on an input array of size n, assuming the memory is reused as much as possible. Again give a Θ estimate for the $S(n)$, and justify your answer. (This one is pretty simple! A sentence or two may suffice.)
-
+        \vspace{0.3cm}\\\textbf{Solution:}
+        \begin{enumerate}
+            \item Whilst recycling: $\theta (n)$ is an estimate for $S(n)$ since:
+            \item The max space used by any level is $cn$ = $\theta (n)$
+        \end{enumerate}
+        
     \end{enumerate}
         \\
         \textbf{Remark: }besides the arrays, MERGE-SORT needs an additional O(lg n) words of stack space to keep track of all the recursive calls, but I'm not asking you about that.
