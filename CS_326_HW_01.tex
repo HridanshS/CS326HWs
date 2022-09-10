@@ -11,6 +11,8 @@
 \usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{tikz}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 \usetikzlibrary{arrows,arrows.meta,decorations,decorations.pathreplacing,calc,matrix}
 
 \definecolor{Red}{rgb}{1,0,0}
@@ -234,9 +236,18 @@ For each part, suppose the functions f(n) and g(n) are asymptotically positive, 
         \item Say function f is \textit{"asymptotically non-decreasing"} if $f(n)≤f(n+1)$ for all large enough n. Prove or disprove: if $f(n)=Θ(n^2)$, then f is asymptotically non-decreasing.
         
         \begin{enumerate}
+            \item  It is false, here is a counterexample
+            \item $f(n) = n^2$ when n is even; $f(n) = (n+2)^2$ when n is odd
+            \item Let's consider when n = 7\\
+            Since 7 is odd, we will use $f(n) = (n+2)^2$\\
+            $f(7) = 9^2 = 81$
+            \item Let's consider when n = 8\\
+            Since 8 is even, we will use $f(n) = n^2$\\
+            $f(7) = 8^2 = 64$
+            
             \item Statement (S): if $f(n) = \theta(n^2)$, then f is asymptotically non-decreasing
             \item $f(n) \leq f(n+1)$ \hspace{1cm} Using S, we can convert it to a asymptotic notation, using $f(n) = O(n^2)$\\
-            
+            \item 
         \end{enumerate}
         
     \end{enumerate}
@@ -267,15 +278,68 @@ Consider the pseudocode for MERGE and MERGE-SORT in Section 2.3. We suppose that
         \textbf{Remark: }besides the arrays, MERGE-SORT needs an additional O(lg n) words of stack space to keep track of all the recursive calls, but I'm not asking you about that.
 
 \item Problem 5. Find the Missing Integer.\\
-The array A[1..n] has n distinct integer entries. Each integer A[i] is in the range 0 to n (inclusive). So there is exactly one integer x in the range that does not appear in A. You want to find this x. However, you do not have direct access to the array A. Instead, for an array index i and $j≥0$, you can call the function get(i,j), which returns the jth bit of A[i], when it is written in binary notation. This function takes O(1) time per call.
+The array A[1..n] has n distinct integer entries. Each integer A[i] is in the range 0 to n (inclusive). So there is exactly one integer x in the range that does not appear in A. You want to find this x. However, you do not have direct access to the array A. Instead, for an array index i and $j \geq0$, you can call the function get(i,j), which returns the jth bit of A[i], when it is written in binary notation. This function takes O(1) time per call.
     \begin{enumerate}
         \item Write out pseudocode for a procedure that finds x, using just n and the get(i,j) function.
+        \begin{enumerate}
+            \item See next page\\
+            Citation: https://www.math-linux.com/latex-26/faq/latex-faq/article/how-to-write-algorithm-and-pseudocode-in-latex-usepackage-algorithm-usepackage-algorithmic
+        \end{enumerate}
+        \begin{algorithm}
+            \caption{Find the Missing Integer \rightarrow MissingInt(input, loc)}
+            \begin{algorithmic} 
+                \REQUIRE $A[i] \hspace{0.1cm}E \hspace{0.1cm} [0, n]$
+                \ENSURE $loc \geq 0$
+                \IF{$loc < 0$}
+                \RETURN 0
+                \ELSE
+                \STATE Initialize arrays 1 and 2
+                \ENDIF
+                
+                \FOR{each element in input}
+                \STATE $X \leftarrow get(elementNum, loc)$
+                    \IF{X == 0}
+                    Append element to 2
+                    \ELSE
+                    Append element to 1
+                    \ENDIF
+                \ENDFOR
+                
+                \IF{length of 1 $\geq$ length of 2}
+                \RETURN recursive call: MissingInt(2, loc-1)
+                \ELSE
+                \RETURN recursive call: MissingInt(1, loc-1)
+                \ENDIF
+                
+            \end{algorithmic}
+        \end{algorithm}
+        \textbf{Pseudocode Code explanation:}
+        \begin{enumerate}
+            \item MissingInt takes in two params, input and loc\\
+            input is an array of integer entries; loc is the number of bits in the array
+            \item If loc is less than 0, there is an error, and hence the initial if case. treat loc as j in get(i,j)
+            \item 2 arrays are initialized, for each of them to hold the numbers, based on even or odd bit
+            \item for each element in the array, the for loop will run
+            \item a call to get(i,j) is made - elementNum is i (being calculated with for loop)
+            \item if the value in X (output of $get$ function stored in X) is 0, that means it is an even bit, and hence stored in Array 2
+            \item after this has been done for all the bits ($get$ function does for all bits in each element, for loop runs for all elements, cummulative effect: all bits covered), length of the odd and even arrays is compared
+            \item The shorter Array has the missing integer ($\leq$ needed to compensate for edge case) and hence sent into recursive call
+        \end{enumerate}
 
         \item Analyze the worst-case running time of your solution. For full credit, you want to show that it runs in $O(n)$ time.
+        \begin{enumerate}
+                \item In the tree analysis of the Merge Sort, we see that it first runs through the entire Array, and then with each level of the tree (As we go lower and lower), the array gets further and further divided. 
+                \item The situation is similar in this MissingInt code - we go through the entire array, bit by bit (number by number in the case of Merge Sort), and then we send half the length of the array into a recursive call
+                \item Comparing this to the tree of Merge Sort, only half the tree is actually being used. This is good for time and space complexity since it uses only half the number of steps. \\
+                The worst-case running time will be better than that of Merge Sort
+                \item The total time taken will be calculated similar to that of Merge Sort: it will be $\theta (n) + t(n/2)$\\
+                This runs in $O(n)$ time due to the for loop structure and the embedded get function. The get function takes O(1) time for each call and for the entire MissingInt funtion, we take $O(n)$ time (as it iterates through each bit, and the recursive steps). The number of steps, like in Merge Sort is $O(log \hspace{0.1cm}n)$
+            \end{enumerate}
     \end{enumerate}
+        
 
         \\
-        \textbf{Remark: }Look for a recursive D&C approach, where you divide the problem size in half in O(n) time. If you like, you may assume that n = 2k-1 (so each A[i] is a k-bit integer). If you cannot solve this in O(n) time, then submit a O(n lg n) time solution for partial credit.
+        \textbf{Remark: }Look for a recursive D&C approach, where you divide the problem size in half in O(n) time. If you like, you may assume that $n = 2k-1$ (so each A[i] is a k-bit integer). If you cannot solve this in O(n) time, then submit a O(n lg n) time solution for partial credit.
 
 
 \end{enumerate}
