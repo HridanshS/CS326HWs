@@ -106,7 +106,7 @@
 
 
 \begin{flushleft}
-    \textit{Prof. M. Grigni\hfill09/07/2022 \hfill Hridansh Saraogi} \\
+    \textit{Prof. M. Grigni\hfill09/22/2022 \hfill Hridansh Saraogi} \\
     \vspace{0.15cm}
     \small {Help taken from: Prof. Grigni, and Zhenke Liu}
 \end{flushleft}
@@ -114,231 +114,37 @@
 
 \begin{enumerate}
 
-\item Problem 1. Loop Invariant Example. \\
-See CLRS Chapter 2 for the notion of a "loop invariant". Look at function $mystery5(a,n)$ defined \href{https://cs.emory.edu/~mic/demos/mystery5.html}{here}. You may suppose that its arguments are non-negative integers. We ignore the possibility of integer arithmetic overflow.
+\item Problem 1. Shifted Recurrence. \\
+For positive integers 
     \begin{enumerate}
-        \item Propose a loop invariant for mystery5, involving the values of a, n, r, i, and b. You'll want to choose an invariant which helps you to finish the next three parts of this problem.\\
-        
-        a \hspace{0.5cm} n \hspace{0.5cm} r \hspace{0.5cm} b \hspace{0.5cm} i
-        \\\rule{4 cm}{2}\\
-        3 \hspace{0.5cm} 4 \hspace{0.5cm} 1 \hspace{0.5cm} 3 \hspace{0.5cm} 4\\
-        3 \hspace{0.5cm} 4 \hspace{0.5cm} 1 \hspace{0.5cm} \textbf{9} \hspace{0.5cm} \textbf{2}\\
-        3 \hspace{0.5cm} 4 \hspace{0.5cm} 1 \hspace{0.5cm} \textbf{81} \hspace{0.3cm} \textbf{1}\\  
-        3 \hspace{0.5cm} 4 \hspace{0.5cm} \textbf{81} \hspace{0.3cm} 81 \hspace{0.3cm} \textbf{0}\\  
-        
-        \textbf{Solution:} Loop invariant: $rb^{i} = a^n$ \\
-        
-        \item Verify that your loop invariant is true initially (before the first iteration of the loop).
-        \\Based on the data, r = 1, b = a = 3, i = n = 4\\
-        $rb^{i} = a^n$ $\rightarrow (r)(b^{i}) = (r)(a^n) = (a^n) = a^n$\\
-        Since RHS = LHS, the loop invariant is true initially
-        
+        \item Argue
 
-        \item Verify that your loop invariant is maintained. That is, if it is true at the start of one iteration, then it is also true at the end of that iteration. (You'll need to consider two cases: either i is even or i is odd.)
-        \begin{enumerate}
-            \item We will consider this in two cases - when i is odd and when it is even
-            \item When odd: $r_{a} = rb$; $i_{a} = i - 1$; $b_{a} = b$ \\
-            Checking the loop invariant: $b_{a}^i_{a} * r_{a} = b^{i-1} = a^n$\\
-            $\therefore$ the loop invariant is true in the odd case
-            
-            \item When even: $b_{a} = b$; $i_{a} = i/2$; $r_{a} = rb$\\
-            Checking the loop invariant: $b_{a}^{i_{a}} * r_{a} = b^{2*(i_{}a)} = b^{2*(i/2)} = b^i*r =  a^n$\\
-            $\therefore$ the loop invariant is true in the even case
-        \end{enumerate}
+        \item Find constants 
 
-        \item Supposing that the loop finally ends, use your loop invariant to argue that mystery5(a,n) returns an.
-        \begin{enumerate}
-            \item To be able to argue this, we need to understand that the loop will end if and only if i = 0\\
-            Further, we must observe that r is the value that is returned in the mystery code
-            \item Now, in the following proof, which is derived using our loop invariant, we see that $r = a^n$: $r(b^i) = r(b^0) = r = a^n$\\
-            \item Due to both the above facts, we can state that the loop invariant $rb^{i} = a^n$ returns $a^n$
-        \end{enumerate}
-
-        \item Argue that the loop will end. Furthermore, give a Θ estimate for the number of iterations of the loop, as a function of n.
-        \begin{enumerate}
-            \item i takes on the value of n, which is inputted as a non-negative number\\
-            i's value changes during the running of the program, and the way its value is decreased depends on whether i is even or odd (decreased by 1 is odd, divided by 2 if even)
-            \item Due to the above conditions under which i's value decreases, it is bound to reach the value i = 1
-            \item Upon reaching i = 1, it will enter the odd branch, which will decrease the value of i by 1 and make it $i = 0$
-            \item Given the number of steps (i's value divided by 2 each time in the even loop) and procedure of decreasing i's value, a suitable estimation of $\theta$ is $\theta (log \hspace{0.1cm} n)$
-        \end{enumerate}
+        \item Using (a)
         
     \end{enumerate}
 
-\item Problem 2. Ranking Functions.\\
-List the following functions in asymptotic order, with the slowest-growing functions first. Two functions $f$ and $g$ should be listed on the same line if $f(n)=Θ(g(n))$, otherwise they should be listed on separate lines. Note that $`lg'$ denotes the base-2 logarithm. No proofs are required for this problem!\\
-\hspace{0.5cm}
-$n, \sqrt{n}, n^2, (\sqrt2)^{lg \hspace{0.1 cm} n}, (3/2)^{n}, 9^{\log _{3} n}, \log _{10} (n^n), n^{1/3}, lg(n\hspace{0.1 cm} lg\hspace{0.1 cm}n),$ \\
-$ 2^n, 2^{2n}, 42, (lg \hspace{0.1 cm}n)^2, lg (n^2), 4^{\sqrt{n}}, n^n, n!, lg(n!), lg \hspace{0.1cm}lg\hspace{0.1cm}n, 1/n$
+\item Problem 2. Selection in Two Sorted Arrays.\\
+Suppose A[1..m] and B[1..n] are\vspace{0.3cm}\\
 
-    \vspace{0.3cm}\\\textbf{Solution:}
-    \\$1/n$
-    \\$42$
-    \\$lg \hspace{0.1cm}lg\hspace{0.1cm}n$
-    \\$lg(n\hspace{0.1 cm} lg\hspace{0.1 cm}n)$, $lg\hspace{0.1 cm} (n^2)$
-    \\$(lg \hspace{0.1 cm}n)^2$
-    \\$n^{1/3}$
-    \\$\sqrt{n}$, $(\sqrt2)^{lg \hspace{0.1 cm} n}$
-    \\$n$
-    \\$lg(n!)$
-    \\$\log _{10} (n^n)$
-    \\$n^2$, $9^{\log _{3} n}$
-    \\$4^{\sqrt{n}}$
-    \\$(3/2)^{n}$
-    \\$2^n$
-    \\$2^{2n}$
-    \\$n!$
-    \\$n^{n}$
-
-\item Problem 3. Prove or Disprove.\\
-For each part, suppose the functions f(n) and g(n) are asymptotically positive, as defined in Chapter 3 (page 45). Note that for a disproof, you should give a counterexample.
-    \begin{enumerate}
-        \item Prove or disprove: if $f(n)=O(g(n))$, then $2^{f(n)}=O(2^{g(n)})$.
-        \textbf{Solution:}
-        \begin{enumerate}
-            \item It is false. Here is a counterexample:
-            \item If $f(n)=O(g(n))$, then $2^{f(n)}=O(2^{g(n)})$ \hspace{1cm} (S)
-            \item Attempting to prove the above:\\
-            Let's consider f(n) as 2n and g(n) as n\\
-            Important to note: $f(n)=O(g(n))$ signifies $fn \leq c * O(g(n))$
-            \item In such a case:\\
-            $2^{2n} = O(2^{2n}) \rightarrow 2^{2n} \leq c * 2^n$\\
-            $c*2^n \geq 2^n * 2^n$ \rightarrow $c \geq 2^n$\\
-            Since 'c' is a constant, any arbitrary value you choose, you will be able to find an n large enough, which would make $2^n$ larger than c
-            \item Hence, we are able to disprove statement (S)
-        \end{enumerate}
-        
-        \item Prove or disprove: f(n) is $O(f^2(n))$.
-
-        \begin{enumerate}
-            \item It is false, here is a counterexample
-            \item Statement (S): f(n) is $O(f^2(n))$
-            \item $O(f^2(n))$ can be re-written as: $O(f(n) * f(n))$\\
-            $f(n) \leq c * (f(n) * f(n)) = c * f(n) *f(n)$
-            \item As stated in the theorem of asymptotic notation, c is a positive value\\
-            Based on this, in every condition, c*f(n)*f(n) will always be bigger than or equal to f(n).\\
-            Although when f(n) is 1/value, things become different let us consider the case where f(n) is 1/n
-            
-            \item $f(n) \leq c * f(n) * f(n)$\\
-            $1/n \leq c * 1/n * 1/n$\\
-            $1/n \leq c * 1/n^2$\\
-            
-            \item Now let us consider the case when n grows without bound in the above inequality\\
-             $\lim_{n\to\infty} (1/n \leq c * 1/n^2)$ \\
-             Our first observation is that \[ \lim_{n\to\infty} (n^2) \] grows faster than \[ \lim_{n\to\infty} (n) \]\\
-             Due to this, $1/n^2$ will become smaller and smaller, and it will do so faster than 1/n
-             
-            \item Now considering the impact of c, a positive constant \\
-            Since c is a constant, whatever value it holds, we can find an n such that it is larger than c. Due to this, the impact of the $n^2$ cannot be negated, and the inequality will not hold true
-            \item Based on the above, we can conclude that S is disproven
-        \end{enumerate}
-
-        \item Say function f is \textit{"asymptotically non-decreasing"} if $f(n)≤f(n+1)$ for all large enough n. Prove or disprove: if $f(n)=Θ(n^2)$, then f is asymptotically non-decreasing.
-        
-        \begin{enumerate}
-            \item  It is false, here is a counterexample
-            \item $f(n) = n^2$ when n is even; $f(n) = (n+2)^2$ when n is odd
-            \item Let's consider when n = 7\\
-            Since 7 is odd, we will use $f(n) = (n+2)^2$\\
-            $f(7) = 9^2 = 81$
-            \item Let's consider when n = 8\\
-            Since 8 is even, we will use $f(n) = n^2$\\
-            $f(8) = 8^2 = 64$
-            \item $f(7)$ is greater than $f(8)$\\
-            This tells us that f(n) is greater than f(n+1) hence it is not asymptotically non-decreasing, and does not obey $f(n)≤f(n+1)$ for all large enough n. 
-            \item $\therefore$ proved that the statement is false
-        \end{enumerate}
-        
-    \end{enumerate}
+\textbf{Hints: }If m
 
 
-\item Problem 4. Merge-Sort Array Space.\\
-Consider the pseudocode for MERGE and MERGE-SORT in Section 2.3. We suppose that the array A is passed "by reference", so there is only one copy of A. Note that MERGE allocates two new temporary arrays, L and R. We'll suppose that a new array of size k uses k+1 words of memory.
-    \begin{enumerate}
-        \item Let $A(n)$ be the total number of words of memory used for all of the new arrays allocated during MERGE-SORT, on an input array of size n. Give a Θ estimate for $A(n)$, and briefly justify your answer (a couple of sentences may suffice). Note we are not "recycling" memory yet (that's the next part).
-        \vspace{0.3cm}\\\textbf{Solution:}
-        \begin{enumerate}
-            \item Case where in we are not "recycling" memory yet: \\
-            $\theta$ estimate for $A(n)$: $\theta (n \hspace{0.1cm} log \hspace{0.1cm}n)$
-            \item Looking at Merge Sort, as the book expresses it, as a tree (using 'tree analysis'): the size of each level's array is n\\
-            By putting together the number of levels in the tree $(log\hspace{0.1cm}n)$, and the size of each level's array, we get $n \hspace{0.1cm} log \hspace{0.1cm} n$
-            \item \therefore \hspace{0.1cm}$\theta (n \hspace{0.1cm} log \hspace{0.1cm}n)$ is an estimate for A(n) | the total number of words of memory used
-        \end{enumerate}
 
-        \item Now we suppose that the allocated arrays are recycled back to the system when MERGE is done with them. (The memory for L and R is returned to the system at the end of MERGE, so that the memory can be reused.) Let $S(n)$ be the total number of words of memory that we need, in order to allocate all the arrays used during MERGE-SORT, on an input array of size n, assuming the memory is reused as much as possible. Again give a Θ estimate for the $S(n)$, and justify your answer. (This one is pretty simple! A sentence or two may suffice.)
-        \vspace{0.3cm}\\\textbf{Solution:}
-        \begin{enumerate}
-            \item Whilst recycling: $\theta (n)$ is an estimate for $S(n)$ since:
-            \item The max space used by any level is $cn$ = $\theta (n)$
-        \end{enumerate}
-        
-    \end{enumerate}
-        \\
-        \textbf{Remark: }besides the arrays, MERGE-SORT needs an additional O(lg n) words of stack space to keep track of all the recursive calls, but I'm not asking you about that.
+\item Problem 3. LCS Backtracking.\\
+(Based on Exercise 15.4-2, page 396.) Write a pseudo-
 
-\item Problem 5. Find the Missing Integer.\\
-The array A[1..n] has n distinct integer entries. Each integer A[i] is in the range 0 to n (inclusive). So there is exactly one integer x in the range that does not appear in A. You want to find this x. However, you do not have direct access to the array A. Instead, for an array index i and $j \geq0$, you can call the function get(i,j), which returns the jth bit of A[i], when it is written in binary notation. This function takes O(1) time per call.
-    \begin{enumerate}
-        \item Write out pseudocode for a procedure that finds x, using just n and the get(i,j) function.
-        \begin{enumerate}
-            \item See next page\\
-            Citation: https://www.math-linux.com/latex-26/faq/latex-faq/article/how-to-write-algorithm-and-pseudocode-in-latex-usepackage-algorithm-usepackage-algorithmic
-        \end{enumerate}
-        \begin{algorithm}
-            \caption{Find the Missing Integer \rightarrow MissingInt(input, loc)}
-            \begin{algorithmic} 
-                \REQUIRE $A[i] \hspace{0.1cm}E \hspace{0.1cm} [0, n]$
-                \ENSURE $loc \geq 0$
-                \IF{$loc < 0$}
-                \RETURN 0
-                \ELSE
-                \STATE Initialize arrays 1 and 2
-                \ENDIF
-                
-                \FOR{each element in input}
-                \STATE $X \leftarrow get(elementNum, loc)$
-                    \IF{X == 0}
-                    Append element to 2
-                    \ELSE
-                    Append element to 1
-                    \ENDIF
-                \ENDFOR
-                
-                \IF{length of 1 $\geq$ length of 2}
-                \RETURN recursive call: MissingInt(2, loc-1)
-                \ELSE
-                \RETURN recursive call: MissingInt(1, loc-1)
-                \ENDIF
-                
-            \end{algorithmic}
-        \end{algorithm}
-        \textbf{Pseudocode Code explanation:}
-        \begin{enumerate}
-            \item MissingInt takes in two params, input and loc\\
-            input is an array of integer entries; loc is the number of bits in the array
-            \item If loc is less than 0, there is an error, and hence the initial if case. treat loc as j in get(i,j)
-            \item 2 arrays are initialized, for each of them to hold the numbers, based on even or odd bit
-            \item for each element in the array, the for loop will run
-            \item a call to get(i,j) is made - elementNum is i (being calculated with for loop)
-            \item if the value in X (output of $get$ function stored in X) is 0, that means it is an even bit, and hence stored in Array 2
-            \item after this has been done for all the bits ($get$ function does for all bits in each element, for loop runs for all elements, cummulative effect: all bits covered), length of the odd and even arrays is compared
-            \item The shorter Array has the missing integer ($\leq$ needed to compensate for edge case) and hence sent into recursive call
-        \end{enumerate}
 
-        \item Analyze the worst-case running time of your solution. For full credit, you want to show that it runs in $O(n)$ time.
-        \begin{enumerate}
-                \item In the tree analysis of the Merge Sort, we see that it first runs through the entire Array, and then with each level of the tree (As we go lower and lower), the array gets further and further divided. 
-                \item The situation is similar in this MissingInt code - we go through the entire array, bit by bit (number by number in the case of Merge Sort), and then we send half the length of the array into a recursive call
-                \item Comparing this to the tree of Merge Sort, only half the tree is actually being used. This is good for time and space complexity since it uses only half the number of steps. \\
-                The worst-case running time will be better than that of Merge Sort
-                \item The total time taken will be calculated similar to that of Merge Sort: it will be $\theta (n) + t(n/2)$\\
-                This runs in $O(n)$ time due to the for loop structure and the embedded get function. The get function takes O(1) time for each call and for the entire MissingInt funtion, we take $O(n)$ time (as it iterates through each bit, and the recursive steps). The number of steps, like in Merge Sort is $O(log \hspace{0.1cm}n)$
-            \end{enumerate}
-    \end{enumerate}
-        
+\item Problem 4. Optimal BST Example.\\
+Do Exercise 15.5-2\vspace{0.3cm}
+
+\textbf{Hints: }the table is hard
+
+\item Problem 5. Reality Check.
 
         \\
-        \textbf{Remark: }Look for a recursive D&C approach, where you divide the problem size in half in O(n) time. If you like, you may assume that $n = 2k-1$ (so each A[i] is a k-bit integer). If you cannot solve this in O(n) time, then submit a O(n lg n) time solution for partial credit.
+        \textbf{NOTE: }this problem involves writing a short program (in your favorite language).
 
 
 \end{enumerate}
