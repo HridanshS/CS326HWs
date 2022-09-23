@@ -132,8 +132,27 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
         \item Argue that $T(n)$ is non-decreasing. That is, $T(n) \leq T(n+1)$ for all $n \geq 1$. Use induction.
         
         \begin{enumerate}
+            \item Let P(n) be the statement: $T(n) \leq T(n+1)$
             \item Base Case: Check that $T(n) \leq T(n+1)$ is true for $1 \leq n \leq 10$
-            n = 1
+            \begin{enumerate}
+                \item $n = 1: T(1) = 1; T(n+1) = T(1+1) = T(2) = 2$\\
+                Since $2 >1$, P(n) holds true
+                \item n = 3: T(3) = 3; T(n+1) = T(3+1) = T(4) = 4\\
+                Since $4 > 3$, P(n) holds true
+                \item n = 6: T(6) = 6; T(n+1) = T(6+1) = T(7) = 7\\
+                Since $7 > 6$, P(n) holds true
+                \item n = 7: T(7) = 7; T(n+1) = T(7+1) = T(8) = 8\\
+                Since $8 > 7$, P(n) holds true
+                \item n= 10: T(10) = 10; T(n+1) = T(10+1) = T(11) = 2*(T(11/2) + 5) + 11 \\
+                = 2*(T(5) + 5) + 11
+                = 2*(5+5) + 11 = 2*10 + 11\\
+                = 20 + 11 = 33\\
+                Since $33 > 10$, P(n) holds true
+            \end{enumerate}
+            Given all the above cases (instead of checking for all 10 possible values of n in this piece-wise segment, we randomly selected a few), we see that $T(n) \leq T(n+1)$.
+            Further, it is also important to note that the derivative of $T(n) \leq T(n+1)$ for $1 \leq n \leq 10$ is 1. This means that is is an increasing function.
+            $\therefore$ we can conclude that the Base Case is true
+            
         \end{enumerate}
 
         \item Find constants c and d, so that $T(2^k+10) \leq 2^k(k+c)-d$ for all integers $k \geq 10$. Use induction on k, and give explicit values for c and d.
@@ -236,7 +255,7 @@ Do Exercise 15.5-2. Show the e[i,j] table (a triangular table of numbers) and dr
 \end{tabular}\\
 \textit{Above, we see the triangular table of numbers, e[i,j]}
 \vspace{1cm}
-\includegraphics[scale=0.5]{Optimal BST.png}\\
+\includegraphics[scale=0.5]{BST Optimal.png}\\
 \textit{Optimal BST Visualization}
 \end{center}
 
