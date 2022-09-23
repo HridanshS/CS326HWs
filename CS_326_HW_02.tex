@@ -146,18 +146,50 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
                 \item n= 10: T(10) = 10; T(n+1) = T(10+1) = T(11) = 2*(T(11/2) + 5) + 11 \\
                 = 2*(T(5) + 5) + 11
                 = 2*(5+5) + 11 = 2*10 + 11\\
-                = 20 + 11 = 33\\
-                Since $33 > 10$, P(n) holds true
+                = 20 + 11 = 31\\
+                Since $31 > 10$, P(n) holds true. This was an edge case but P(n) still held true
             \end{enumerate}
             Given all the above cases (instead of checking for all 10 possible values of n in this piece-wise segment, we randomly selected a few), we see that $T(n) \leq T(n+1)$.
             Further, it is also important to note that the derivative of $T(n) \leq T(n+1)$ for $1 \leq n \leq 10$ is 1. This means that is is an increasing function.
             $\therefore$ we can conclude that the Base Case is true
             
+            \item Now let us utilise the method of Strong Induction to prove that the recurrence T(n) holds true for the entire function\\
+            Let us assume $T(n-1) \leq T(n)$, for $n \leq k$ and must be smaller than 12 ($k > 12$)
+            \item Using the above, we will see if P(n) holds true. Based on this, we get:\\
+            $\lfloor k/2 \rfloor + 5 \leq \lfloor (k+1)/2 \rfloor + 5 \leq k$
+            \item By applying both sides of the inequality to the T(n) function, we get:\\
+            $T(\lfloor k/2 \rfloor + 5) \geq T(\lfloor (k+1)/2 \rfloor + 5)$
+            \item Since $k < k+1$, we can insert the same into the above inequality to obtain:\\
+            $2*T(\lfloor k/2 \rfloor + 5) + n \hspace{1cm}\leq \hspace{1cm}$ $ 2*T(\lfloor (k+1)/2 \rfloor + 5) + k + 1$
+            \item This signifies that $T(k) \leq T(k+1)$, and hence can claim that it is an increasing function.
+            $\therefore T(n)$ is non-decreasing
+            
         \end{enumerate}
 
         \item Find constants c and d, so that $T(2^k+10) \leq 2^k(k+c)-d$ for all integers $k \geq 10$. Use induction on k, and give explicit values for c and d.
+        \begin{enumerate}
+            \item Let's consider the Base Case where k = 0\\
+            In this case, $T(11) \leq 2^0(0+c) - d$\\
+            As calculated previously, T(11) = 31. So we get $31 \leq c-d$
+            \item Let us focus on the situation where $k \geq 1$. This will help when proving the induction
+            \item We will make the following assumption:\\
+            $T(2^{k-1} + 10) \leq 2^{k-1} * (k-1+c)-d$
+            \item The above was for k-1. Let us obtain for k. Please see below\\
+            $T(2^k + 10) = 2 * T(2^{k-1} + 10) + 2^k + 10 \leq 2(2^{k-1}(k-1 + c)-d)+2^k + 10$
+            \item Simplifying: 
+            $2(2^{k-1}(k-1 + c)-d)+2^k + 10 =2^k(k+c)-2d+10$
+            \item Using the above inequality, we comprehend that $2^k(k+c)-2d+10 \ leq 2^k*(k+c)-d$ is necessary to make the following inequality hold:\\
+            $T(2^k+10 \leq 2^k(k+c)-d$
+            \item This gives us that d must always be greater than or equal to 10 ($d \geq 10$)
+            \item Using the above requirement, and the one we found at the start of this sub-section, based on T(11): $31 \leq c-d$\\
+            We can conclude that the following numbers satisfy both the above requirements:\\
+            c = 41 & d = 10
+        \end{enumerate}
 
         \item Using (a) and (b), conclude that T(n) is $O(n* lg n)$.
+        \begin{enumerate}
+            \item 
+        \end{enumerate}
         
     \end{enumerate}
 \pagebreak
