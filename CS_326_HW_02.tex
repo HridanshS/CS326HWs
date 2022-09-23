@@ -130,28 +130,116 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
 
     \begin{enumerate}
         \item Argue that $T(n)$ is non-decreasing. That is, $T(n) \leq T(n+1)$ for all $n \geq 1$. Use induction.
+        
+        \begin{enumerate}
+            \item Base Case: Check that $T(n) \leq T(n+1)$ is true for $1 \leq n \leq 10$
+            n = 1
+        \end{enumerate}
 
         \item Find constants c and d, so that $T(2^k+10) \leq 2^k(k+c)-d$ for all integers $k \geq 10$. Use induction on k, and give explicit values for c and d.
 
         \item Using (a) and (b), conclude that T(n) is $O(n* lg n)$.
         
     \end{enumerate}
-
+\pagebreak
 \item Problem 2. Selection in Two Sorted Arrays.\\
 Suppose A[1..m] and B[1..n] are two sorted arrays of numbers, and that the m+n numbers are all distinct. We are also given an integer i, $1 \leq i \leq m+n$. We want to return the $i^{th}$ smallest number, in the union of A and B. Like in Chapter 9: i=1 means we should return the minimum, i=m+n means we should return the maximum. Using pseudocode, write out a procedure solving this problem, and argue that it runs in O(lg(m+n)) time.  Your solving procedure may be recursive, and it probably works on subarrays of the original arrays, for example: solve(A,p1, r1, B, p2, r2, i).\vspace{0.1cm}
 
 \textbf{Hints: }If m or n is zero, the problem is easy. While both arrays are nonempty, compare the median of A with the median of B. Then depending on the comparison and i, you have enough information to eliminate either half of A or half of B.\\
 
+\textbf{Solution: }\\
+Some things to keep in mind
+\begin{enumerate}
+    \item m + n is always greater than or equal to 1
+    \item If it is =1, that means one of the arrays is of length 0\\
+    In such a case, immediately, the non-0 array's $i^{th}$ element will be returned
+\end{enumerate}
 
+Some tricks/strategies to improve computational speed (inspiration from MergeSort technique)
+\begin{enumerate}
+    \item Look at mid-points of each array & compare to:\\
+    The below situation will work because all the m+n numbers are distinct
+    \begin{enumerate}
+        \item Let's look at sum of the indices of the middle elements of each array\\
+        If it is greater than i, let's compare index of a particular array to i
+        \begin{enumerate}
+            \item If the median element of B is smaller than the median (middle) element of A, we eliminate the second half of A\\
+            Else we eliminate second half of B
+        \end{enumerate}
+        \item If it is less than i, we can do the following:
+            \begin{enumerate}
+                \item If the median element of B is smaller than the median (middle) element of A, we eliminate first half of B\\
+                Else we eliminate first half of A
+            \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+\pagebreak
+    \begin{algorithm}
+        \caption{Selection in Two Sorted Arrays \rightarrow ithSmallestNumber(i, A, B)}
+        \begin{algorithmic} 
+            \REQUIRE $len(A) \geq 0$; $len(B) \geq 0$
+            \ENSURE $i \geq 0$ \vspace{0.5cm}
+            \IF{len(B) = 0}
+            \RETURN A[i]
+            \ELSIF{len(A) = 0}
+            \RETURN B[i]
+            \ENDIF \vspace{0.5cm}
+            
+            medianA = len(A)/2\\
+            medianB = len(B)/2  \vspace{0.5cm}
+            
+            \IF{medianA + medianB $>$ i} {
+                \IF{B[medianB] $<$ A[medianA]}{
+                \RETURN Recursive call with first half of A
+                \ELSE 
+                \RETURN Recursive call with first half of B}
+                \ENDIF
+            \vspace{0.3cm}
+            \ELSIF{B[medianB] $<$ A[medianA]}{
+            \RETURN Recursive call with second half of B; value of i: i-medianB-1
+            \ELSE 
+            \RETURN Recursive call with second half of A; value of i: i-medianA-1
+            }
+            }
+            \ENDIF
+            
+        \end{algorithmic}
+    \end{algorithm}
+This runs in O(lg(m+n)) time because with each recursive call, one of the arrays gets reduced by half.\\
+This reduces the space taken up, by a log factor
 
+\pagebreak
 \item Problem 3. LCS Backtracking.\\
 (Based on Exercise 15.4-2, page 396.) Write a pseudo-code procedure PRINT$-LCS(c,X,Y,i,j)$, similar to PRINT$-LCS(b,X,i,j)$ on page 395. Its initial call is PRINT$-LCS(c,X,Y,m,n)$, where m=X.length and n=Y.length. It should produce exactly the same output, using the "c" array but not the "b" array. It should still run in $O(m+n)$ time.
 
-
+\pagebreak
 \item Problem 4. Optimal BST Example.\\
 Do Exercise 15.5-2. Show the e[i,j] table (a triangular table of numbers) and draw an optimal tree.\vspace{0.1cm}
 
 \textbf{Hints: }the table is hard to compute by hand, I recommend writing a small program to help yourself.
+
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+\hline
+& 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+\hline
+1 & 0.06 & 0.28 & 0.62 & 1.02 & 1.34 & 1.83 & 1.42 & 3.12 \\ 
+2 & & 0.06 & 0.30 & 0.68 & 0.93 & 1.41 & 1.96 & 2.61 \\ 
+3 & & & 0.06 & 0.32 & 0.57 & 1.04 & 1.48 & 2.13\\ 
+4 & & & & 0.06 & 0.24 & 0.57 & 0.99 & 1.55\\
+5 & & & & & 0.05 & 0.30 & 0.72 & 1.20\\
+6 & & & & & & 0.05 & 0.32 & 0.78\\
+7 & & & & & & & 0.05 & 0.34\\
+8 & & & & & & & & 0.05\\
+\hline
+\end{tabular}\\
+\textit{Above, we see the triangular table of numbers, e[i,j]}
+\vspace{1cm}
+\includegraphics[scale=0.5]{Optimal BST.png}\\
+\textit{Optimal BST Visualization}
+\end{center}
+
 
 \pagebreak
 \item Problem 5. Reality Check.
