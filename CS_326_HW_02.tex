@@ -8,6 +8,7 @@
 \usepackage{theorem}
 \usepackage{version}
 \usepackage{multirow}
+\usepackage{listings}
 \usepackage{hyperref}
 \usepackage{amssymb}
 \usepackage{tikz}
@@ -152,6 +153,7 @@ Do Exercise 15.5-2. Show the e[i,j] table (a triangular table of numbers) and dr
 
 \textbf{Hints: }the table is hard to compute by hand, I recommend writing a small program to help yourself.
 
+\pagebreak
 \item Problem 5. Reality Check.
 
         \\
@@ -181,11 +183,25 @@ Do Exercise 15.5-2. Show the e[i,j] table (a triangular table of numbers) and dr
         M(n) is the worst-case number of comparisons used by Merge-Sort on n items, and S(n) is (roughly) the worst case number of comparisons used by Select on n items (see Section 9.3). From the book we know that $M(n)=Θ(n*lg n)$ and $S(n)=Θ(n)$, so eventually S(n) is much smaller than M(n).\\ \\
         Write a computer program finding the first n such that $2*S(n) < M(n)$. It should print n, S(n), and M(n). Turn in a copy of your program, and its output.
         \\ \\
-        \textit{Remarks: }the first n with $S(n)<M(n)$ is n=154, with $S(n)=974$ and $M(n)=977$. This exercise illustrates that Select does not have much advantage for small inputs (you should probably just sort). The first "6" is the S(n) recurrence is because we can find the median of 5 items using only 6 comparisons (a fun puzzle, but you don't have to solve it).
+        \textit{Remarks: }the first n with $S(n)<M(n)$ is n=154, with $S(n)=974$ and $M(n)=977$. This exercise illustrates that Select does not have much advantage for small inputs (you should probably just sort). The first "6" is the S(n) recurrence is because we can find the median of 5 items using only 6 comparisons (a fun puzzle, but you don't have to solve it). \vspace{2cm}
+        
+        
+        \textbf{Hridansh's Solution on next page}\\
+        THIS CODE IS MY OWN WORK, IT WAS WRITTEN WITHOUT CONSULTING \\A TUTOR OR CODE WRITTEN BY OTHER STUDENTS - Hridansh Saraogi
 
 
+\end{enumerate}
+\pagebreak
+\textit{A Python program solving Q5, which finds the first n such that $2*S(n) < M(n)$. \\It prints n, S(n), and M(n).}
+\lstinputlisting[language=Python]{RealityCheck.py}
 
-
+\pagebreak
+\begin{flushleft}
+    Output for code on prev. page (copied from terminal):
+\end{flushleft}
+\begin{enumerate}
+    \item Last element index: 9177855
+    \item Last element of S[N]: 101745647; Last element of M[N]: 203491305
 \end{enumerate}
 
 \end{document}
