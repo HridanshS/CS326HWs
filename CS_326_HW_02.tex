@@ -263,6 +263,17 @@ This reduces the space taken up, by a log factor
 \item Problem 3. LCS Backtracking.\\
 (Based on Exercise 15.4-2, page 396.) Write a pseudo-code procedure PRINT$-LCS(c,X,Y,i,j)$, similar to PRINT$-LCS(b,X,i,j)$ on page 395. Its initial call is PRINT$-LCS(c,X,Y,m,n)$, where m=X.length and n=Y.length. It should produce exactly the same output, using the "c" array but not the "b" array. It should still run in $O(m+n)$ time.
 
+\begin{enumerate}
+    \item Using the modified C table which we are supposed to print, and the original sequences X and Y, the following program is meant to create the Longest Common sub-Sequence
+    \item In the table, i and j start are the bottom-right corner of the C table\\
+    Starting there, it makes it way zig-zag-ing up to the top left corner of the table\\
+    It does so using i rows and j columns
+
+\end{enumerate}
+
+    \textit{A Python program solving Q3, which focuses on LCS Backtracking. \\It runs in $O(m+n)$ time.}
+    \lstinputlisting[language=Python]{RealityCheck.py}
+
 \pagebreak
 \item Problem 4. Optimal BST Example.\\
 Do Exercise 15.5-2. Show the e[i,j] table (a triangular table of numbers) and draw an optimal tree.\vspace{0.1cm}
