@@ -109,7 +109,7 @@
 \begin{flushleft}
     \textit{Prof. M. Grigni\hfill09/22/2022 \hfill Hridansh Saraogi} \\
     \vspace{0.15cm}
-    \small {Help taken from: Prof. Grigni, and Zhenke Liu}
+    \small {Help taken from: Prof. Grigni, Zhenke Liu, and Rhea Ramchandran}
 \end{flushleft}
 
 
@@ -188,7 +188,28 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
 
         \item Using (a) and (b), conclude that T(n) is $O(n* lg n)$.
         \begin{enumerate}
-            \item 
+            \item From subpart b of Q1, we obtained the following:\\
+            $T(2^k + 10) \leq 2^k (k + c) - d$
+            \item Now, to conclude that T(n) is $O(n* lg n)$, let us find the smallest k so that $n \leq 2^k + 10$
+            \item This gives us:\\
+            $2^k \geq (n-10)$\\
+            $k \geq lg(n-10)$
+            \item Using subpart a of Q1, we saw that $T(n) <= T(2^k + 10)$\\
+            This helps us arrive at the following:\\
+            $T(n) \leq 2^k (k+c) - d \leq (n-10)(log(n-10)+41)-10$
+            \item $(n-10)(log(n-10)+41)-10 \leq n*(log(n)+41)-10 \leq n*log(n) + 41n - 10$
+            \item This has the complexity of O(n*log(n))
+            \item Now let us use bounds to confine n-10's range. The lowest it can go is $2^{k-1}$ and the greatest it can be is $2^k$\\
+            This helps us compute the value for n
+            \item On the lower bound: $2^{k-1} < n-10$\\
+            $k-1 < log(n-10) \rightarrow k < 1 + log(n)$
+            \item Using subpart b of Q1:\\
+            $T(2^{1 + log(n} + 10) \leq 2^{1+log(n)} (1+log(n)+c)-d$\\
+            $T(2*2^{log(n)}+ 10) \leq (2*2^{log(n)})(1 + log(n) + 41)-10$\\
+            $T(2n + 10) \leq 2n + 2n*log(n) + 41*(2n)-10$
+            \item $T(n) \leq 2n*log(n) + 2n + 82n -10$\\
+            Based on complexity analysis, the first term in the above equation would be the most complex
+            $\therefore T(n) = O(n*log(n))$
         \end{enumerate}
         
     \end{enumerate}
