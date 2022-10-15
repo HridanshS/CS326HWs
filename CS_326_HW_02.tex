@@ -109,7 +109,8 @@
 \begin{flushleft}
     \textit{Prof. M. Grigni\hfill09/22/2022 \hfill Hridansh Saraogi} \\
     \vspace{0.15cm}
-    \small {Help taken from: Prof. Grigni, Zhenke Liu, and Rhea Ramchandran}
+    \small {Help taken from: Prof. Grigni, and Zhenke Liu}\\
+    \small {Collaborators: Rhea Ramchandran}
 \end{flushleft}
 
 
@@ -150,7 +151,7 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
                 Since $31 > 10$, P(n) holds true. This was an edge case but P(n) still held true
             \end{enumerate}
             Given all the above cases (instead of checking for all 10 possible values of n in this piece-wise segment, we randomly selected a few), we see that $T(n) \leq T(n+1)$.
-            Further, it is also important to note that the derivative of $T(n) \leq T(n+1)$ for $1 \leq n \leq 10$ is 1. This means that is is an increasing function.
+            Further, it is also important to note that the derivative of $T(n) \leq T(n+1)$ for $1 \leq n \leq 10$ is 1. This means that is is an increasing function.\\
             $\therefore$ we can conclude that the Base Case is true
             
             \item Now let us utilise the method of Strong Induction to prove that the recurrence T(n) holds true for the entire function\\
@@ -161,7 +162,7 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
             $T(\lfloor k/2 \rfloor + 5) \geq T(\lfloor (k+1)/2 \rfloor + 5)$
             \item Since $k < k+1$, we can insert the same into the above inequality to obtain:\\
             $2*T(\lfloor k/2 \rfloor + 5) + n \hspace{1cm}\leq \hspace{1cm}$ $ 2*T(\lfloor (k+1)/2 \rfloor + 5) + k + 1$
-            \item This signifies that $T(k) \leq T(k+1)$, and hence can claim that it is an increasing function.
+            \item This signifies that $T(k) \leq T(k+1)$, and hence can claim that it is an increasing function.\\
             $\therefore T(n)$ is non-decreasing
             
         \end{enumerate}
@@ -178,8 +179,8 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
             $T(2^k + 10) = 2 * T(2^{k-1} + 10) + 2^k + 10 \leq 2(2^{k-1}(k-1 + c)-d)+2^k + 10$
             \item Simplifying: 
             $2(2^{k-1}(k-1 + c)-d)+2^k + 10 =2^k(k+c)-2d+10$
-            \item Using the above inequality, we comprehend that $2^k(k+c)-2d+10 \ leq 2^k*(k+c)-d$ is necessary to make the following inequality hold:\\
-            $T(2^k+10 \leq 2^k(k+c)-d$
+            \item Using the above inequality, we comprehend that $2^k(k+c)-2d+10 \leq 2^k*(k+c)-d$ is necessary to make the following inequality hold:\\
+            $T(2^k+10) \leq 2^k(k+c)-d$
             \item This gives us that d must always be greater than or equal to 10 ($d \geq 10$)
             \item Using the above requirement, and the one we found at the start of this sub-section, based on T(11): $31 \leq c-d$\\
             We can conclude that the following numbers satisfy both the above requirements:\\
@@ -194,6 +195,7 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
             \item This gives us:\\
             $2^k \geq (n-10)$\\
             $k \geq lg(n-10)$
+            \item we also know: $n \geq 11$, if $n=2^k + 10 \rightarrow k \geq 0$
             \item Using subpart a of Q1, we saw that $T(n) <= T(2^k + 10)$\\
             This helps us arrive at the following:\\
             $T(n) \leq 2^k (k+c) - d \leq (n-10)(log(n-10)+41)-10$
@@ -204,8 +206,12 @@ Our goal is to show $T(n) = O(n*lg n)$, without using the Master Theorem. (This 
             \item On the lower bound: $2^{k-1} < n-10$\\
             $k-1 < log(n-10) \rightarrow k < 1 + log(n)$
             \item Using subpart b of Q1:\\
-            $T(2^{1 + log(n} + 10) \leq 2^{1+log(n)} (1+log(n)+c)-d$\\
-            $T(2*2^{log(n)}+ 10) \leq (2*2^{log(n)})(1 + log(n) + 41)-10$\\
+            $T(2^{1 + log(n} + 10) \leq 2^{1+log(n)} (1+log(n)+c)-d$
+            \item We need to use the following understanding to continue this further\\
+            Since $\frac{2^n+10}{2^{n-1}+10}\leq 2$, we get:\\
+            $T(n) \leq n*(log(n - 10) + 41) - 10 \leq n*(log(n)+41) - 10$ \\
+            This understanding helps us continue $T(2^{1 + log(n} + 10) \leq 2^{1+log(n)} (1+log(n)+c)-d$
+            \item $T(2*2^{log(n)}+ 10) \leq (2*2^{log(n)})(1 + log(n) + 41)-10$\\
             $T(2n + 10) \leq 2n + 2n*log(n) + 41*(2n)-10$
             \item $T(n) \leq 2n*log(n) + 2n + 82n -10$\\
             Based on complexity analysis, the first term in the above equation would be the most complex
