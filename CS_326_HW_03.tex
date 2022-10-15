@@ -133,7 +133,14 @@
 
 \item Problem 3. Two Stacks.
     \begin{enumerate}
-        \item H
+        \item Please refer to the implementation of the Queue, using two Stacks, in Java - seen on the following page
+        \item Using the Java code and other analysis, I will show that the amortized cost of each ENQUEUE and each DEQUEUE operation is O(1).
+        \item I will use The Accounting Method to do this Amortized Analysis. In this method, we assign differing costs to different operations, with some expenses more or less than they actually cost. The amount charged per operation is called its amortized cost. The term credit will refer to an operation's amortized cost.
+        \item Let us begin by ascribing a cost to each of the operations that will be performed, namely ENQUEUE and DEQUEUE. Let the cost be 3 units and 0 units respectively. 
+        \item Given the implementation on the next page, one needs to understand how the Queue will work. We will be pushing on top of Stack A ($in_stack$), and this will be considered our Enqueue operation. We will be popping off from Stack B ($out_stack$) and will consider this the Dequeue operation
+        \item In the event that our $out_stack$ does not contain any elements, we must transfer all elements from the $in_stack$ to the $out_stack$, before continuing to Dequeue from the $out_stack$
+        \item 
+
     
     \end{enumerate}
 
@@ -145,7 +152,45 @@ Below is code which implements a FIFO Queue using two Stacks, each of which are 
 
 \item Problem 4. Delete-Larger-Half.
     \begin{enumerate}
-        \item H
+        \item Designing a data structure to support INSERT(S,x) and DELETE-LARGER-HALF(S) for a dynamic multiset S.
+        \item Let us begin by storing all the elements in an array. This is a dynamic array implementation, signifying that if we reach the end of the array while inserting elements, we will create a new array of twice the size. Then we will transfer all the elements from the initial array to the new, longer one. 
+        \item Given the two operations, DELETE-LARGER-HALF(S) is more extensive and time consuming. It requires us to find the middle element of the array S, which is found by dividing the length of S by 2 and rounding up. 
+        \item After finding the central element, the first half of the array (all elements, up till the central element) are copied into a smaller array of size $S/2$ (length of S, divided by 2). This new array is the initial array with the DELETE-LARGER-HALF(S) operation completed on it.
+        \item Now let us see how this implementation signifies that INSERT and DELETE-LARGER-HALF operations run in O(m) time:
+        \begin{enumerate}
+            \item Let us begin by showing that each of these operations are done in a constant time of O(1). Upon showing this, we will then be able to see that any sequence of m INSERT/DELETE-LARGER-HALF operations must run in O(m) time.
+            \item We will begin with the INSERT operation:
+                \begin{enumerate}
+                    \item We must consider both possible cases for this operation - when there is space available in the array, and when the array is full.
+                    \item When the array has available space, the INSERT operation will place the element after the last element already in the array. Each of these insertions will consume O(1) time
+                    \item In the other case, when the array is full, as discussed previously: we will need to copy all the elements into another array of twice the size. After that, we can insert the element at the end of all pre-existing elements, in the new array. This process is time consuming and will consume O(n) time
+                    \item Given these two cases, the worst time complexity will occur in the second case, when the array is full. Although since that scenario will not occur every time, we should analyze INSERT's time complexity using amortized properties.
+                    \item The INSERT operation will typically flow as: \\
+                    a is the size of the array, and we will do a+1 insertions (to encounter the worst case scenario)
+                    \item $a * O(1)$ is the time cost of the first *a* operations\\
+                    The cost of the last operation (a+1)th operation will take O(a) + O(1) since it will first have to copy all the *a* elements, then insert the (a+1)th element
+                    \item For this scenario where we have to copy all the elements, overall we will have two operations for each insertion. \\
+                    $\therefore$ we will have 2a operations for *a* insertions
+                    \item The concept of amortized analysis dictates that when the INSERT operation is sufficiently large, the runtime complexity of each INSERT operation will result as O(1)
+                    \item Using this, we conclude that for any sequence of m INSERT operations, the total time complexity will be O(m) time. 
+                    
+                \end{enumerate}
+            \item Let us now look at the DELETE-LARGER-HALF Operation, using amortized properties:
+                \begin{enumerate}
+                    \item Let us assume that we:\\
+                    1) \hspace{0.5cm} have a sequence of INSERT and DELETE-LARGER-HALF Operations\\
+                    2) \hspace{0.5cm} know that any sequence of m INSERT operations runs in O(m) time
+                    \item Using a similar accounting method, as seen in Q3, we decide upon a cost for each DELETE-LARGER-HALF Operation. We say that it is cost=3 (maybe simpler with a multiple of two)
+                    \item Each DELETE-LARGER-HALF operation takes O(n) time to reduce the array to half. \\
+                    We notice that this cost becomes directly related (in fact, proportional) to the number of elements in the array - O(n).\\
+                    Based on this, each element costs 1 whenever a DELETE-LARGER-HALF operation occurs.
+                    \item Although, since each element will finish with cost two after the entire operation will be completed (since the cost is divided between the elements which were not deleted), we see:\\
+                    Each DELETE-LARGER-HALF operation us completed in a constant time of O(1).
+                    \item Using this, we conclude that for any sequence of m DELETE-LARGER-HALF operations, the total time complexity will be O(m) time. 
+                \end{enumerate}
+                \item Based on these computations, we can conclude that any sequence of m INSERT and DELETE-LARGE-HALF operations will run in O(m) time.
+        \end{enumerate}
+        \item Upon realising that this time is constant, we can infer and conclude that the output of the elements of S will be completed in O(\|S\|) time.
     
     \end{enumerate}
 
