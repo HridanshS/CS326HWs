@@ -10,6 +10,7 @@
 \usepackage{multirow}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{algpseudocode}
 \usepackage{amssymb}
 \usepackage{tikz}
 \usepackage{algorithm}
@@ -119,15 +120,109 @@
 
 \item Problem 1. Alternative UTS Algorithm. 
     \begin{enumerate}
-        \item H
+        \item Let us organize the schedule tasks by their assigned weights/deadlines
+    \end{enumerate}
+\begin{center}
+    \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+    \hline
+    t_i & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\ 
+    d_i & 4 & 2 & 4 & 3 & 1 & 4 & 6 \\ 
+    w_i & 70 & 60 & 50 & 40 & 30 & 20 & 10 \\ 
+    \hline
+    \end{tabular}\\
+    
+    \begin{enumerate}
+        \item To re-arrange them using early first form, early tasks will come before late tasks.\\
+        Based on the algorithm, the table below is in non-ascending weight order 
         
     \end{enumerate}
+    
+    \begin{tabular}{ |c|c|c|c|c|c|c|c| } 
+    \hline
+    t_i & 1 & 2 & 4 & 5 & 7 & 3 & 6 \\ 
+    d_i & 4 & 2 & 3 & 1 & 6 & 4 & 4 \\ 
+    w_i & 70 & 60 & 50 & 40 & 30 & 20 & 10 \\ 
+    \hline
+    \end{tabular}\\
+
+    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+    \hline
+    Tasks & T_1 & T_2 & T_3 & T_4 & T_5 & T_6 \\ 
+    Due & 5 & 4 & 1 & 3 & 2 & 4 \\ 
+    Weight & 3 & 3 & 1 & 2 & 2 & 2\\ 
+    \hline
+    \end{tabular}\\
+    
+    \begin{enumerate}
+        \item Let us add a time factor, through which we can re-arrange the tasks based on their weights (importance)
+        
+    \end{enumerate}
+    
+    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
+    \hline
+    Tasks & T_1 & T_2 & T_3 & T_4 & T_5 & T_6 \\ 
+    Due & 5 & 4 & 1 & 3 & 2 & 4 \\ 
+    Weight & 3 & 3 & 1 & 2 & 2 & 2\\ 
+    \hline
+    \end{tabular}\\
+\end{center}
 \pagebreak
 
 \item Problem 2. Coin Changing.
     \begin{enumerate}
-        \item H
+        \item A set of coin denominations for which the greedy algorithm does not yield an optimal solution:
+        \begin{enumerate}
+            \item Looking at the coins available in India: 1, 2, 10, 25. Suppose I wanted Rs 40
+            \item The greedy algorithm would give me:\\ 1 coin of Rs 25\\ 1 coin of Rs 10\\ 2 coins of Rs 2 \\ 1 coin of Rs 1\\ 
+            This is 5 coins
+            \item Although, the ideal solution would be 4 coins of Rs 10 each\\
+            Hence, we see that the greedy algorithm does not yield an optimal solution
+        \end{enumerate}
+        \item An O(nk)-time algorithm that makes change for any set of k different coin denominations, assuming that one of the coins is a penny.
+        \begin{enumerate}
+            \item Using Dynamic Programming
+            \item c[j] is the minimum number of coins needed to make change of j cents
+            \item Base case: c[j] = 0 for all $j \leq 0$
+            \item Explicitly stating all the potential c[j] values (needed for recursive implementation - need to know all denominations):\\
+            \begin{equation}
+            c[j]=
+                \begin{cases}
+                    0 & \text{if } j \leq 0\\
+                    1 + $\min_{1 \leq j \leq k} \{c[j-d_i]\}$ & \text{if } j > 1
+                \end{cases}
+            \end{equation}
+            \item The pseudocode on the below will run in O(nk) time
+            \item Another method is needed to output the values stored in the two arrays but multiples is the array of interest. 
+            
+            
+        \end{enumerate}
+    
+        
     \end{enumerate}
+    
+    \begin{algorithm}
+    \caption{How much change?}\label{alg:cap}
+    \begin{algorithmic}
+        \Require $j \leq 0$
+        \Ensure $j \geq d$
+        \State calc[1...n] and multiples[1...n] are new arrays
+        \For{\texttt{j = 1 to n}}
+            \State c[j] = 100000000 \Comment{Assign very large value}
+            \For{\texttt{i = 1 to k}}
+                \If{$j \geq d_i$ and $(1 + c[j-d_i] < c[j])$}
+                    \State $c[j] = 1 + c[j-d_i]$
+                    \State $multiples[j] = d_i$  
+                \EndIf
+            \ENDFOR
+        \ENDFOR
+        \State \Return calc and multiples
+    \end{algorithmic}
+    \end{algorithm}
+    
+\pagebreak
+
+
+\pagebreak 
 
 \pagebreak
 
@@ -136,10 +231,32 @@
         \item Please refer to the implementation of the Queue, using two Stacks, in Java - seen on the following page
         \item Using the Java code and other analysis, I will show that the amortized cost of each ENQUEUE and each DEQUEUE operation is O(1).
         \item I will use The Accounting Method to do this Amortized Analysis. In this method, we assign differing costs to different operations, with some expenses more or less than they actually cost. The amount charged per operation is called its amortized cost. The term credit will refer to an operation's amortized cost.
-        \item Let us begin by ascribing a cost to each of the operations that will be performed, namely ENQUEUE and DEQUEUE. Let the cost be 3 units and 0 units respectively. 
-        \item Given the implementation on the next page, one needs to understand how the Queue will work. We will be pushing on top of Stack A ($in_stack$), and this will be considered our Enqueue operation. We will be popping off from Stack B ($out_stack$) and will consider this the Dequeue operation
-        \item In the event that our $out_stack$ does not contain any elements, we must transfer all elements from the $in_stack$ to the $out_stack$, before continuing to Dequeue from the $out_stack$
-        \item 
+        \item Let us begin by ascribing a cost to each of the operations that will be performed, namely ENQUEUE and DEQUEUE. Let the cost be 3 units and 1 units respectively. 
+        \item Given the implementation on the next page, one needs to understand how the Queue will work. We will be pushing on top of Stack A ($in\_stack$), and this will be considered our Enqueue operation. We will be popping off from Stack B ($out\_stack$) and will consider this the Dequeue operation
+        \item In the event that our $out\_stack$ does not contain any elements, we must transfer all elements from the $in\_stack$ to the $out\_stack$, before continuing to Dequeue from the $out\_stack$
+        \item Using this understanding, let us deep dive to show that the amortized cost of each ENQUEUE and each DEQUEUE operation is O(1).
+        \begin{enumerate}
+            \item Properties of each function, as seen in the CLRS book. Note: each of these operations will occur in an amortized cost of O(1). As seen on pg. 460
+            \item push() operation: $\hat{c}_i = C_i + \phi (D_i) - \phi (D_{i-1}) = 2$\\
+            pop() operation: $\hat{c}_i = C_i + \phi (D_i) - \phi (D_{i-1}) = 0$
+            \item Let us compute the amortized cost of each operation. We will do this using an attempt at creating our own function:\\
+            $\phi = 2 * $ elements in $in\_stack$ (No. of elems), where $\phi(D_i) \geq \phi(D_0)$ and $\phi (D_i) \geq 0$
+            \begin{enumerate}
+                \item In the ENQUEUE operation, the amortized cost of the PUSH operation is 2, and the actual cost of the ENQUEUE implementation is 1. This gives us:\\ 
+                $\hat{c_i} = C_i + \phi(D_i) - \phi(D_{i-1}) = 1+2 = 3$\\ 
+                This takes O(1) time
+                
+                \item For the DEQUEUE operation, two scenarios are possible. \\
+                1) \hspace{0.5 cm} $out\_stack$ is not empty. \\Therefore, we can DEQUEUE, the cost of the pop() operation will be O(1)\\
+                2) \hspace{0.5 cm} $out\_stack$ is empty\\
+                Cost of push() operation: 0\\
+                Cost of pop() operation: 2*pop()
+                \item amortized cost of DEQUEUE (with empty $out\_stack$):\\
+                $\hat{c_i} = C_i + \phi(D_i) - \phi(D_{i-1}) = 1 + 2p - 2p$ \\
+                $\therefore \hat{c_i}= 1$
+            \end{enumerate}
+            Given this, we see that the amortized costs for the ENQUEUE and DEQUEUE operations are 3 and 1, and take O(1) time complexity
+        \end{enumerate}
 
     
     \end{enumerate}
@@ -197,10 +314,56 @@ Below is code which implements a FIFO Queue using two Stacks, each of which are 
 \pagebreak
 \item Problem 5. Multi-Array Binary Search.
     \begin{enumerate}
-        \item H
+        \item Performing the SEARCH operation for this data structure: 
+        \begin{enumerate}
+            \item Since we are not familiar with the relationship between individual arrays, we will linearly go through each of them using the Binary Search. Employing this search technique would require O(log(s)) time, with *s* being the size of the initial array.
+            \item In a hypothetical worst case scenario (for SEARCH):
+            \begin{enumerate}
+                \item An unsuccessful search occurs and takes O(log(s))  
+                \item All the sorted arrays are full (question says this cannot occur, but we are still analysing it for the sake of understanding)
+            \end{enumerate}
+            In such a scenario (with arrays of length $2^a$), the total run time will be: $O(log^2(n))$ - in the worst case scenario for SEARCH\\
+            The proof for the above total run time involves taking the big-O of the log of each of the arrays' lengths, to obtain O((a(a-1)/2). Then taking the ceil of this helps us arrive at the total run time.
+        \end{enumerate}
+        
+        \item Performing the INSERT operation for this data structure: 
+        \begin{enumerate}
+            \item The element to be inserted will be placed inside a new array of size 1.
+            \item Now there are two possible scenarios:
+            \begin{enumerate}
+                \item $A_0$ is empty
+                \item $A_0$ contains an element
+            \end{enumerate}
+            In the first scenario, if $A_0$ is empty, the new array replaces $A_0$. Although, in the second case, the new element and the element in $A_0$ will be merge sorted and placed into an array which can hold 2 elements
+            \item Once again, we are faced with two possible scenarios:
+            \begin{enumerate}
+                \item $A_1$ is empty
+                \item $A_1$ contains element(s)
+            \end{enumerate}
+            As before, in the first scenario, $A_1$ will be replaced if it is empty. Else, the two arrays will be merge sorted as done previously.
+            \item This will keep going on and we will result in a list of arrays (as existed before the INSERT operation)\\
+            \item Analyzing the worst-case running time:\\
+            Let us consider the case when all the arrays are full. Then the time to fill the next array $A_{k+1}$ will be:\\
+            (Note: we are basing it on the assumption that merge sorting two arrays of size *a* each consumes 2a time)
+            \begin{enumerate}
+                \item $T(n) = 2(2^0 + 2^1 + 2^2 + ... + 2^a)$\\
+                =$\hspace{1 cm} 2(2^{a-1} -1)$\\
+                =$\hspace{1 cm} 2^a - 2$\\
+                =$\hspace{1 cm} O(n)$
+            \end{enumerate}
+            Hence, we see that the worst case time for the INSERT operation will be O(n)
+            \item Now let us analyze the amortized running time:
+            \begin{enumerate}
+                \item Beginning with an empty data structure, we want to calculate the aggregate cost of inserting *s* elements. 
+                \item Let us use the accounting method to analyse the running time.\\
+                Suppose each element is charged \$s, \$1 is the cost paid for each time the INSERT operation is run. After the first INSERT call, \$(s-1) will be remaining; this money will be required for subsequent operations\\
+                This amount of money is sufficient because each time an operation occurs (typically: merge), the element moves to a new array. \item Since there are only *s* of these arrays, the element will be able to call the merge operation at max s-1 times.\\ $\therefore$ the \$(s-1) will be sufficient to cover the cost of all the subsequent operations
+                \item Anyhow, since the big-O of K (as given in the question) is O(log(n)), the amortized cost of each insertion can be calculated as O(log(n))
+            \end{enumerate}
+        \end{enumerate}
     
     \end{enumerate}
-
+    
 \end{enumerate}
 \pagebreak
 
