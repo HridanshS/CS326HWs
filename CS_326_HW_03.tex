@@ -141,30 +141,31 @@
     \hline
     t_i & 1 & 2 & 4 & 5 & 7 & 3 & 6 \\ 
     d_i & 4 & 2 & 3 & 1 & 6 & 4 & 4 \\ 
-    w_i & 70 & 60 & 50 & 40 & 30 & 20 & 10 \\ 
-    \hline
-    \end{tabular}\\
-
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
-    \hline
-    Tasks & T_1 & T_2 & T_3 & T_4 & T_5 & T_6 \\ 
-    Due & 5 & 4 & 1 & 3 & 2 & 4 \\ 
-    Weight & 3 & 3 & 1 & 2 & 2 & 2\\ 
+    w_i & 70 & 60 & 40 & 30 & 10 & 50 & 20 \\ 
     \hline
     \end{tabular}\\
     
     \begin{enumerate}
-        \item Let us add a time factor, through which we can re-arrange the tasks based on their weights (importance)
+        \item Using the above table, we see that the late penalty amounts to 70. In the table, it is not in early first form since the early tasks do not come before the late tasks.
+        
+        \item The greedy Algorithm in the textbook can be compared to this problem. There are two cases which need to be considered:
+        
+        \begin{enumerate}
+            \item What happens to late tasks in both the algorithms?
+                \begin{enumerate}
+                    \item In both the algos, the task $a_i$ will not be placed in a slot in the table if all slots are already occupied. This amounts to a penalty because the task is not completed before the deadline.\\
+                    $\therefore$ both the algorithms are in accordance for this situation
+                \end{enumerate}
+            \item What happens to early tasks in both the algorithms?
+                \begin{enumerate}
+                    \item In both the algos, the task $a_i$ will be placed in a slot in the table which is not already occupied. This amounts to the task being completed before the deadline since it was scheduled early (and was able to obtain a slot).\\
+                    $\therefore$ both the algorithms are in accordance for this situation
+                \end{enumerate}
+        \end{enumerate}
+        The algorithm we see for this question (as provided by Prof. Grigni), produces a minimum penalty since tasks scheduled early are equally prioritised, as seen in the textbook's Greedy Algorithm
         
     \end{enumerate}
     
-    \begin{tabular}{ |c|c|c|c|c|c|c|c|c| } 
-    \hline
-    Tasks & T_1 & T_2 & T_3 & T_4 & T_5 & T_6 \\ 
-    Due & 5 & 4 & 1 & 3 & 2 & 4 \\ 
-    Weight & 3 & 3 & 1 & 2 & 2 & 2\\ 
-    \hline
-    \end{tabular}\\
 \end{center}
 \pagebreak
 
