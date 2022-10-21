@@ -116,16 +116,30 @@
 
 \begin{enumerate}
 
-\item Problem 1. 
+\item Problem 1. FH Height.
+    \begin{enumerate}
+        \item Show it is possible for a Fibonacci heap to have size n and height n-1, for all n. That is, describe a sequence of operations creating a final heap where the n nodes are in a single tree, which is a chain. Show some intermediate steps of your construction, also indicating which nodes are marked.
+        \item Argue that in any such heap (not just in your example), at least n-2 of the nodes have lost a child.
+    \end{enumerate}
+    \textit{Reminder: } CascadingCut does not mark a root when it loses a child.
 \pagebreak
 
-\item Problem 2. 
+\item Problem 2. FH ExtractMin Worst Case.\\
+Modify the Fibonacci Heap so that the worst-case time for ExtractMin is O(lg n), rather than O(n). All the FH operations should still have the same amortized time bounds. To accomplish this, you may need to increase the asymptotic worst-case time for some of the other FH operations, which ones?
+
+\textit{Hint: }keep track of t(H), and don't let it get larger than some constant times D(n).
 \pagebreak
 
-\item Problem 3. 
+\item Problem 3. Exercise 25.2-9 (page 700).\\
+On computing transitive closure. (\textit{Hint: }you may use the result from CS-253 or Section 22.5, that we can compute the strongly connected components of a digraph in O(V+E) time. Also, the resulting kernel or component graph (page 617) is a DAG.)
 \pagebreak
 
-\item Problem 4. 
+\item Problem 4. Exercise 25.3-6 (page 705).\\
+On Professor Michener's variant of Johnson's algorithm (two parts).
+\pagebreak
+
+\item Problem 5. Exercise 26.1-7 (page 714).\\
+On modeling vertex capacity constraints. Include a drawing, showing how a vertex v in G (with limit l(v) and some in-edges and some out-edges) is represented in G'. Also, what are the source and sink in G'?
 \pagebreak
 
 \end{enumerate}
