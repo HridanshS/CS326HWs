@@ -189,10 +189,18 @@ Suppose we want to find a maximum matching in a bipartite graph G. We first cons
         \begin{enumerate}
             \item For such a min-cut, the residual flow network needs to be considered.
             \item This network will be saturated 
-            \item 
+            \item For vertices on the sink-side of the cut, and have atleast an edge going to v in the flow network, it will be $>k$
+            \\the above is true because h != k (Explained previously, and in textbook)
+            \\Will be $>k$ because otherwise it can be only k-1 (no other options, not even h = k)
+            \item Through this mannerism, we collectively name all the vertices (having a value $>k$) on the sink side of the graph as S
+            \item Given a route from a vertex in S to another one, then:\\
+            -- the height can only decrease by max. 1, since it cannot beat k\\
+            -- the residual flow network contains no such path
+            \item Given that there is no path from S's vertex to another one, and that the Min cut corresponds to disconnected part of a graph, another min cut must exist.\\
+            This min cut will be located solely on the source-side of the cut
+            \item If such a cut exists, it is a contradiction to points discussed in g) and prior. 
         \end{enumerate}
-        \item Hence we see that it is not a minimum cut - because it has capacity of 2.\\
-        To be a min-cut, it would have had to have capacity of 1
+        \item Hence we see that it is not a minimum cut. \\If numbers were being used in a diagram with vertices, we would have to show that there was a capacity of greater than 1 flowing on the residual network. This would act as a contraction because to be a min-cut, it would have had to have capacity of 1. Anything more is a contradiction
     \end{enumerate}
     
 \pagebreak
